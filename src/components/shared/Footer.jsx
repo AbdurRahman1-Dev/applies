@@ -3,7 +3,7 @@ import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center p-10 primary-bg-color text-white  rounded">
+    <footer className="footer footer-center p-10 primary-bg-color text-white rounded ">
       <div className="grid grid-flow-col gap-2 lg:gap-5">
         <a className="link link-hover">About us</a>
         <a className="link link-hover">Contact</a>

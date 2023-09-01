@@ -16,16 +16,13 @@ const Navbar = () => {
         <Link href={"/features"}>Features</Link>
       </li>
       <li>
-        <Link href={"/signup"}>Sign Up</Link>
-      </li>
-      <li>
-        <Link href={"/login"}>Login</Link>
-      </li>
-      <li>
         <Link href={"/about"}>About</Link>
       </li>
       <li>
         <Link href={"/contact"}>contact</Link>
+      </li>
+      <li>
+        <Link href={"/signup"}>Sign Up</Link>
       </li>
     </>
   );
@@ -76,6 +73,9 @@ const Navbar = () => {
             <Image src={avatar} width={50} alt="avatar"></Image>
           </div>
         </div>
+        <button className="btn btn-md ms-2 btn-error hidden lg:block">
+          LogOut
+        </button>
       </div>
     </div>
   );

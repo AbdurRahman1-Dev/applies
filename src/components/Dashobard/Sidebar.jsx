@@ -15,22 +15,22 @@ const Sidebar = () => {
       </div>
       <div className="mt-20">
         <ul className="text-xl font-semibold text-white">
-          <li className="hover:bg-[rgba(50,39,255,0.91)] duration-200 p-5">
-            <Link href={"/dashboard"}>
+          <Link href={"/dashboard"}>
+            <li className="hover:bg-[rgba(50,39,255,0.91)] duration-200 p-5">
               <FaBriefcase className="inline-block me-2"></FaBriefcase>My
               Applications
-            </Link>
-          </li>
-          <li className="hover:bg-[rgba(50,39,255,0.91)] duration-200 p-5">
-            <Link href={"/dashboard"}>
+            </li>
+          </Link>
+          <Link href={"/dashboard/addapplications"}>
+            <li className="hover:bg-[rgba(50,39,255,0.91)] duration-200 p-5">
               <FaPlus className="inline-block me-2"></FaPlus>Add Applications
-            </Link>
-          </li>
-          <li className="hover:bg-[rgba(50,39,255,0.91)] duration-200 p-5">
-            <Link href={"/dashboard"}>
+            </li>
+          </Link>
+          <Link href={"/dashboard"}>
+            <li className="hover:bg-[rgba(50,39,255,0.91)] duration-200 p-5">
               <FaUserCircle className="inline-block me-2"></FaUserCircle>Profile
-            </Link>
-          </li>
+            </li>
+          </Link>
         </ul>
       </div>
     </div>

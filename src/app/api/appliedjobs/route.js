@@ -6,7 +6,6 @@ export async function POST(req) {
   try {
     const appliedJob = await req.json();
     await connectDB();
-    console.log(appliedJob);
     await appliedJobs.create(appliedJob);
     return NextResponse.json({ message: "job created", status: 201 });
   } catch (error) {

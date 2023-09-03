@@ -31,6 +31,10 @@ footer {
   color: rgb(99, 90, 255);
 }
 
+.primary-border-color {
+  border-color: rgb(99, 90, 255);
+}
+
 .primary-bg-color {
   background-color: rgb(99, 90, 255);
 }

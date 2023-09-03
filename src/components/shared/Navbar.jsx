@@ -23,6 +23,9 @@ const Navbar = () => {
       </li>
       <li>
         <Link href={"/signup"}>Sign Up</Link>
+      </li>{" "}
+      <li>
+        <Link href={"/dashboard"}>Dashboard</Link>
       </li>
     </>
   );

@@ -9,7 +9,7 @@ const HomePage = () => {
       <HeroSection></HeroSection>
       <HowWork></HowWork>
       <Ai></Ai>
-      <FAQ></FAQ>
+      {/* <FAQ></FAQ> */}
     </div>
   );
 };

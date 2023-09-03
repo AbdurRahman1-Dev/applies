@@ -14,7 +14,7 @@ const Sidebar = () => {
         </h3>
       </div>
       <div className="mt-20">
-        <ul className="text-xl font-semibold text-white">
+        <ul className="text-md font-semibold text-white">
           <Link href={"/dashboard"}>
             <li className="hover:bg-[rgba(50,39,255,0.91)] duration-200 p-5">
               <FaBriefcase className="inline-block me-2"></FaBriefcase>My

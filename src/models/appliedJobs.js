@@ -8,6 +8,7 @@ const appliedJobsSchema = new Schema({
   role: String,
   companyLogoURL: String,
   userEmail: String,
+  notes: String,
   date: {
     type: Date,
     default: Date.now,

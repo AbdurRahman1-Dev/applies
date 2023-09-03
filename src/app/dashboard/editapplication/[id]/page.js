@@ -1,44 +1,58 @@
 "use client";
-
+import LoadingFull from "@/components/shared/LoadingFull";
 import { toast } from "react-hot-toast";
+import useSWR from "swr";
 
-const page = () => {
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+const EditApplicationPage = ({ params }) => {
+  const { data, isLoading, mutate, error } = useSWR(
+    `http://localhost:3000/api/appliedjobs/${params.id}`,
+    fetcher
+  );
+
+  if (isLoading) {
+    return <LoadingFull></LoadingFull>;
+  }
+
   const handleSUbmit = async (e) => {
     e.preventDefault();
-    const application = {
+    const updateApplication = {
       companyName: e.target.name.value,
       role: e.target.role.value,
       companyLogoURL: e.target.url.value,
       userEmail: "akrahman@gmail.com",
       notes: e.target.notes.value,
+      status: e.target.status.value,
     };
 
-    // post new application
-
     try {
-      const req = await fetch(`http://localhost:3000/api/appliedjobs`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(application),
-      });
+      const res = await fetch(
+        `http://localhost:3000/api/appliedjobs/${params.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(updateApplication),
+        }
+      );
 
-      if (req.ok) {
-        toast.success("Successfully added");
+      if (res.ok) {
+        toast.success("Successfully Updated");
         e.target.reset();
+        mutate();
       }
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <div className="flex items-center h-screen">
       <div className="w-full bg-white mx-5 py-5 rounded-3xl">
         <div className="flex flex-col  md:p-6 rounded-md w-full">
           <div className="mb-8 text-center">
-            <h1 className="my-3 text-4xl font-bold">Add an Application</h1>
+            <h1 className="my-3 text-4xl font-bold">Update Application</h1>
           </div>
           <form onSubmit={handleSUbmit} className="space-y-6 w-full p-5">
             <div className="space-y-4">
@@ -49,7 +63,7 @@ const page = () => {
                     type="text"
                     name="name"
                     placeholder="Company Name"
-                    required
+                    defaultValue={data?.companyName}
                     className="px-3 py-2 border rounded-md border-gray-300 w-full bg-gray-200 text-gray-900"
                   />
                 </div>
@@ -60,6 +74,7 @@ const page = () => {
                     name="role"
                     required
                     placeholder="Enter Your Role"
+                    defaultValue={data?.role}
                     className="w-full px-3 py-2 border rounded-md border-gray-300  bg-gray-200 text-gray-900"
                   />
                 </div>
@@ -72,6 +87,7 @@ const page = () => {
                     type="text"
                     placeholder="Company Logo URL"
                     name="url"
+                    defaultValue={data?.companyLogoURL}
                     className="px-3 py-2 border rounded-md border-gray-300 w-full bg-gray-200 text-gray-900"
                   />
                 </div>
@@ -81,7 +97,7 @@ const page = () => {
                   <input
                     type="text"
                     name="status"
-                    defaultValue={"In Review"}
+                    defaultValue={data?.status}
                     className="w-full px-3 py-2 border rounded-md border-gray-300  bg-gray-200 text-gray-900"
                   />
                 </div>
@@ -92,6 +108,7 @@ const page = () => {
                   type="textarea"
                   name="notes"
                   placeholder="Notes about this application"
+                  defaultValue={data?.notes}
                   className="w-full h-28 px-3 py-2 border rounded-md border-gray-300  bg-gray-200 text-gray-900"
                 />
               </div>
@@ -101,7 +118,7 @@ const page = () => {
                 type="submit"
                 className="primary-bg-color w-full rounded-md py-3 text-white"
               >
-                Add Now
+                Update
               </button>
             </div>
           </form>
@@ -111,4 +128,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EditApplicationPage;

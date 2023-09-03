@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BiNotepad } from "react-icons/bi";
 const ApplicationNotes = ({ notes }) => {
   return (
@@ -7,11 +8,19 @@ const ApplicationNotes = ({ notes }) => {
         Yor Notes about this Application
       </h4>
 
-      <textarea
-        className="textarea w-full h-40 textarea-primary"
-        placeholder="Notes"
-        defaultValue={notes}
-      ></textarea>
+      <div>
+        <p className="text-xl py-3 text-error">
+          Have new questions, or wnat to take preparation for interview?
+          <Link href={"/dashboard/ai"}>
+            <span className="underline primary-color"> Ask Ai.</span>
+          </Link>
+        </p>
+        <textarea
+          className="textarea w-full h-40 textarea-primary"
+          placeholder="Notes"
+          defaultValue={notes}
+        ></textarea>
+      </div>
     </div>
   );
 };

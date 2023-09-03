@@ -4,16 +4,19 @@ import useSWR from "swr";
 import Image from "next/image";
 import Link from "next/link";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaEdit, FaRegClock } from "react-icons/fa";
+import { FaEdit, FaRegClock, FaTrashAlt } from "react-icons/fa";
 import LoadingSm from "../shared/LoadingSm";
+import { toast } from "react-hot-toast";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const AllApplications = () => {
+  // get all application
   const {
     data: appliedjobs,
     isLoading,
     error,
+    mutate,
   } = useSWR("http://localhost:3000/api/appliedjobs", fetcher);
 
   if (isLoading) {
@@ -22,6 +25,24 @@ const AllApplications = () => {
   if (error) {
     return <div className="text-3xl text-red-500">Something went wrong</div>;
   }
+
+  // delete by Id
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/appliedjobs/${id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        toast.success("Successfully Deleted");
+        mutate();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="overflow-hidden me-5">
       <div className="lg:grid grid-cols-3 gap-4">
@@ -41,7 +62,9 @@ const AllApplications = () => {
             <div className="w-full">
               <div className="flex justify-between items-start">
                 <div>
-                  <Link href={`/dashboard/${applications?._id}`}>
+                  <Link
+                    href={`/dashboard/singleapplication/${applications?._id}`}
+                  >
                     <h3 className="text-2xl font-semibold">
                       {applications?.companyName}
                     </h3>
@@ -60,10 +83,21 @@ const AllApplications = () => {
                     className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
                   >
                     <li>
-                      <a>
+                      <Link
+                        href={`/dashboard/editapplication/${applications?._id}`}
+                      >
                         <FaEdit className="inline-block text-black"></FaEdit>
                         Edit
-                      </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => handleDelete(applications?._id)}
+                        className="text-error"
+                      >
+                        <FaTrashAlt className="inline-block "></FaTrashAlt>
+                        Delete
+                      </button>
                     </li>
                   </ul>
                 </div>

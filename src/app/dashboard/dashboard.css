@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  @apply bg-slate-200;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}
+
+.dark {
+  background-color: #111;
+  color: #fff;
+}
+.light {
+  background-color: #fff;
+  color: #111;
+}
+
+.primary-color {
+  color: rgb(99, 90, 255);
+}
+
+.primary-border-color {
+  border-color: rgb(99, 90, 255);
+}
+
+.primary-bg-color {
+  background-color: rgb(99, 90, 255);
+}
+
+.primary-btn {
+  background-color: rgb(99, 90, 255);
+  color: #fff;
+}
+
+.primary-btn:hover {
+  background-color: rgb(66, 56, 255);
+  color: #fff;
+}
+
+.primary-text-color {
+  color: rgb(99, 99, 99);
+}

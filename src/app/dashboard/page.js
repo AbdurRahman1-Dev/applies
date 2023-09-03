@@ -1,5 +1,4 @@
 import DashboardHome from "@/components/Dashobard/DashboardHome";
-import React from "react";
 
 const DashboardPage = () => {
   return (

@@ -4,7 +4,7 @@ import AppilcationFilter from "./AppilcationFilter";
 
 const DashboardHome = () => {
   return (
-    <div className="">
+    <div>
       <AppilcationFilter></AppilcationFilter>
       <AllApplications></AllApplications>
     </div>

@@ -70,9 +70,9 @@ const SingleApplication = ({ data, mutate }) => {
       </div>
       <div className="flex justify-between gap-5">
         <div className=" bg-white p-5 rounded-xl mt-8 w-1/2">
-          <h3 className="text-2xl font-semibold pb-4">
+          <h3 className="text-xl font-semibold pb-4">
             Update Application Status -
-            <span className="border py-1 px-2 rounded-xl bg-warning text-base ms-2">
+            <span className="border py-1 px-2 rounded-xl bg-warning text-sm ms-2">
               {data?.status}
             </span>
           </h3>

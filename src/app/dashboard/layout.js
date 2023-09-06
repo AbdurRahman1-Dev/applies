@@ -11,7 +11,7 @@ const layout = ({ children }) => {
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <div className="flex justify-center ">
+        <div className="flex justify-center bg-slate-200">
           <Toaster />
           <div className="w-1/5 hidden lg:block">
             <Sidebar></Sidebar>

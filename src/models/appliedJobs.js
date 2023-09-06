@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import userSchema from "./users";
 
 const appliedJobsSchema = new Schema({
   companyName: {
@@ -24,3 +25,5 @@ const appliedJobs =
   mongoose.model("appliedJobs", appliedJobsSchema);
 
 export default appliedJobs;
+
+export const User = mongoose.models.User || mongoose.model("Users", userSchema);

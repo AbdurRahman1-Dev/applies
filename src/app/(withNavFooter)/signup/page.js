@@ -1,11 +1,60 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 
-const page = () => {
+const SignUpPage = () => {
+  const [error, setError] = useState("");
+  const handleSUbmit = async (e) => {
+    e.preventDefault();
+    const userInfo = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+
+    try {
+      // const resExist = await fetch("/api/userexist", {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify(email),
+      // });
+
+      // const user = await resExist.json();
+      // console.log(user);
+
+      // if (user) {
+      //   setError("user exist");
+      //   return;
+      // }
+
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      });
+      if (res.ok) {
+        console.log(res);
+        toast.success("user created");
+        alert("ccreated");
+        e.target.reset();
+      }
+    } catch (error) {
+      console.log("fail");
+      setError("something went wrong");
+    }
+  };
   return (
     <div className="w-full bg-slate-100">
       <div className="w-full my-14 mx-auto md:w-3/6 p-4  sm:p-6 md:p-8  ">
-        <form className="space-y-6 bg-white text-black p-3 md:p-5 rounded-lg">
+        <form
+          onSubmit={handleSUbmit}
+          className="space-y-6 bg-white text-black p-3 md:p-5 rounded-lg"
+        >
           <h5 className="text-xl font-medium ">Sign Up </h5>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 ">
@@ -17,19 +66,6 @@ const page = () => {
               id="name"
               className=" border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
               placeholder="Your name"
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-2 text-sm font-medium text-gray-900 ">
-              Photo URL
-            </label>
-            <input
-              type="text"
-              name="photo"
-              id="Photo URL"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
-              placeholder="Photo URL"
               required
             />
           </div>
@@ -59,7 +95,7 @@ const page = () => {
               className="border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
               required
             />
-            {/* <p className="text-red-600">error</p> */}
+            <p className="text-red-600">{error}</p>
           </div>
 
           <button
@@ -81,4 +117,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignUpPage;

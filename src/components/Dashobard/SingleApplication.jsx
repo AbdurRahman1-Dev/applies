@@ -10,8 +10,11 @@ import {
 import ApplicationNotes from "./ApplicationNotes";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
-const SingleApplication = ({ data, mutate }) => {
+const SingleApplication = ({ applicationData, mutate }) => {
+  const { data } = useSession();
+  console.log(data);
   const handleStatusUpdate = async (newStatus) => {
     const status = {
       status: newStatus,
@@ -19,7 +22,7 @@ const SingleApplication = ({ data, mutate }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/appliedjobs/${data?._id}`,
+        `http://localhost:3000/api/appliedjobs/${applicationData?._id}`,
         {
           method: "PUT",
           headers: {
@@ -43,21 +46,30 @@ const SingleApplication = ({ data, mutate }) => {
       <div className="bg-white p-5 rounded-xl">
         <h3 className="text-3xl primary-color text-center font-bold pt-5 pb-8">
           Application Details
-          <Link href={`/dashboard/editapplication/${data._id}`}>
+          <Link href={`/dashboard/editapplication/${applicationData?._id}`}>
             <FaEdit className="inline-block ms-2"></FaEdit>
           </Link>
         </h3>
         <div className=" flex justify-between items-center ">
           <div>
-            <h3 className="text-3xl font-semibold">{data?.companyName}</h3>
-            <p className="primary-text-color">Role: {data?.role}</p>
+            <h3 className="text-3xl font-semibold">
+              {applicationData?.companyName}
+            </h3>
+            <p className="primary-text-color">Role: {applicationData?.role}</p>
+            <div>
+              <FaRegClock className="inline-block me-1 text-xl primary-color"></FaRegClock>
+              {new Date(applicationData?.date).toLocaleDateString()}
+            </div>
           </div>
 
-          <div>
-            <FaRegClock className="inline-block me-1 text-xl primary-color"></FaRegClock>
-            {new Date(data?.date).toLocaleDateString()}
+          {/* user info */}
+
+          <div className="text-end">
+            <h2 className="text-xl font-semibold">{data?.user?.name}</h2>
+            <p className="primary-text-color">{data?.user?.email}</p>
           </div>
-          <div>
+
+          {/* <div>
             <Image
               className="w-full"
               src={data?.companyLogoURL}
@@ -65,7 +77,7 @@ const SingleApplication = ({ data, mutate }) => {
               height={80}
               alt="logo"
             ></Image>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex justify-between gap-5">
@@ -73,14 +85,14 @@ const SingleApplication = ({ data, mutate }) => {
           <h3 className="text-xl font-semibold pb-4">
             Update Application Status -
             <span className="border py-1 px-2 rounded-xl bg-warning text-sm ms-2">
-              {data?.status}
+              {applicationData?.status}
             </span>
           </h3>
           <div className="dropdown w-full">
             <label tabIndex={0} className="btn btn-outline  w-full m-1">
               <p className="text-xl font-semibold">
                 <FaAngleDown className="inline-block"></FaAngleDown>
-                {data?.status}
+                {applicationData?.status}
               </p>
             </label>
             <ul
@@ -114,7 +126,7 @@ const SingleApplication = ({ data, mutate }) => {
         </div>
       </div>
 
-      <ApplicationNotes notes={data?.notes}></ApplicationNotes>
+      <ApplicationNotes notes={applicationData?.notes}></ApplicationNotes>
     </div>
   );
 };

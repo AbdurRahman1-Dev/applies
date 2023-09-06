@@ -19,7 +19,10 @@ const SingleApplicationPage = ({ params }) => {
 
   return (
     <div className="me-5 my-8">
-      <SingleApplication data={data} mutate={mutate}></SingleApplication>
+      <SingleApplication
+        applicationData={data}
+        mutate={mutate}
+      ></SingleApplication>
     </div>
   );
 };

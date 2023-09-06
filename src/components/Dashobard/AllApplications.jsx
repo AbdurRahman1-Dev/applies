@@ -51,14 +51,14 @@ const AllApplications = () => {
             key={applications?._id}
             className="bg-white p-5 border rounded-xl flex gap-3 items-start"
           >
-            <div className="pt-2">
+            {/* <div className="pt-2">
               <Image
                 src={applications?.companyLogoURL}
                 width={40}
                 height={40}
                 alt="logo"
               />
-            </div>
+            </div> */}
             <div className="w-full">
               <div className="flex justify-between items-start">
                 <div>
@@ -110,7 +110,6 @@ const AllApplications = () => {
                 </div>
 
                 <p className="bg-warning px-2 py-1 rounded-xl">
-                  {" "}
                   {applications?.status}
                 </p>
               </div>

@@ -1,12 +1,15 @@
 "use client";
 
 import React from "react";
-import logo from "../../../public/logo.png";
 import avatar from "../../../public/avatar.png";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 
 const Navbar = () => {
+  const { status } = useSession();
+  const { data } = useSession();
+  console.log(data);
   const navItems = (
     <>
       <li>
@@ -21,12 +24,19 @@ const Navbar = () => {
       <li>
         <Link href={"/contact"}>contact</Link>
       </li>
-      <li>
-        <Link href={"/signup"}>Sign Up</Link>
-      </li>{" "}
-      <li>
-        <Link href={"/dashboard"}>Dashboard</Link>
-      </li>
+      {status == "authenticated" ? (
+        <>
+          <li>
+            <Link href={"/dashboard"}>Dashboard</Link>
+          </li>
+        </>
+      ) : (
+        <>
+          {/* <li>
+            <Link href={"/signup"}>Sign Up</Link>
+          </li> */}
+        </>
+      )}
     </>
   );
   return (
@@ -55,8 +65,15 @@ const Navbar = () => {
           >
             {navItems}
             <div className="navbar-end">
-              <button className="btn btn-sm btn-info">Login</button>
-              <button className="btn btn-sm btn-info">Log Out</button>
+              {status == "authenticated" ? (
+                <button onClick={signOut} className="btn btn-sm btn-info">
+                  LogOut
+                </button>
+              ) : (
+                <button className="btn btn-sm btn-info">
+                  <Link href={"/signup"}>SignIn</Link>
+                </button>
+              )}
             </div>
           </ul>
         </div>
@@ -70,16 +87,39 @@ const Navbar = () => {
           {navItems}
         </ul>
       </div>
-      <div className="navbar-end">
-        <div className="avatar">
-          <div className=" rounded-full">
-            <Image src={avatar} width={50} alt="avatar"></Image>
+
+      {/* condition */}
+
+      {status == "authenticated" ? (
+        <>
+          <div className="navbar-end">
+            <div className="avatar">
+              <div className=" rounded-full">
+                <Image
+                  src={data?.user?.image || avatar}
+                  width={50}
+                  height={50}
+                  alt="avatar"
+                ></Image>
+              </div>
+            </div>
+            <button
+              onClick={signOut}
+              className="btn btn-md ms-2 btn-error hidden lg:block"
+            >
+              LogOut
+            </button>
           </div>
-        </div>
-        <button className="btn btn-md ms-2 btn-error hidden lg:block">
-          LogOut
-        </button>
-      </div>
+        </>
+      ) : (
+        <>
+          <li>
+            <button className="btn primary-btn hidden lg:block">
+              <Link href={"/signup"}>Sign Up</Link>
+            </button>
+          </li>
+        </>
+      )}
     </div>
   );
 };

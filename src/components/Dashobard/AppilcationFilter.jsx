@@ -1,13 +1,25 @@
+"use client";
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { MdSort } from "react-icons/md";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const AppilcationFilter = () => {
+  const { status } = useSession();
+  const route = useRouter();
+
+  // if (status == "authenticated") {
+  //   route.push("/");
+  // }
   return (
     <div className="bg-white p-5 rounded-xl my-7 me-5">
       <div>
         <div className="flex justify-between items-center mb-8">
           <h3 className="lg:text-2xl font-bold">My Applications</h3>
-          <button className="btn btn-outline btn-error hidden lg:block btn-md">
+          <button
+            onClick={signOut}
+            className="btn btn-outline btn-error hidden lg:block btn-md"
+          >
             <FaSignOutAlt className="inline-block"></FaSignOutAlt> Logout
           </button>
         </div>
